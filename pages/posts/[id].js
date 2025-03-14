@@ -1,23 +1,10 @@
 import { getGlobalData } from '../../utils/global-data';
-import {
-  getPostBySlug,
-} from '../../utils/mdx-utils';
-
-import { MDXRemote } from 'next-mdx-remote';
-import Head from 'next/head';
-import Link from 'next/link';
-import ArrowIcon from '../../components/ArrowIcon';
-import CustomLink from '../../components/CustomLink';
+import { getPostBySlug } from '../../utils/mdx-utils';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
 import Layout, { GradientBackground } from '../../components/Layout';
 import SEO from '../../components/SEO';
 
-
-const components = {
-  a: CustomLink,
-  Head,
-};
 
 export default function PostPage({
   posts,
@@ -62,7 +49,6 @@ export const getServerSideProps = async ({ params }) => {
   const globalData = getGlobalData();
   const posts = await getPostBySlug(params.id);
  
-
   return {
     props: {
       globalData,

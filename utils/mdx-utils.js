@@ -1,19 +1,26 @@
-import { api } from '../services/api'
+import supabase from './supabase';
 
 export const getPosts = async () => {
-    const {data} = await api.get('/posts'); 
+    const {data, error} = await supabase
+    .from ('posts')
+    .select('*');
 
-    if(data){
-        return data;
+    if(error){
+        conseole.error('Error fetching posts:', error);
     }
 
-    return []
+    return data;
 }
 
 export const getPostBySlug = async (id) => {
-
-    //TODO: BUSCAR UM POST EM ESPECIFICO.
-    //const {data} = await api.get(`/post?id=eq.${id}`)
-
-    return {}
-}
+    const { data, error } = await supabase
+        .from('posts')
+        .select('*')
+        .eq('id', id)
+        .single();
+    if (error) {
+        console.error('Error fetching post:', error);
+        return {};
+    }
+    return data;
+};
